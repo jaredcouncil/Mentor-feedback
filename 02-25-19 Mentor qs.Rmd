@@ -1,0 +1,43 @@
+---
+title: "Mentor qs (2-27-19)"
+author: "Jared Council"
+date: "February 24, 2019"
+output:
+  pdf_document: default
+  html_document:
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### CHIS data
+
+```{r adult}
+head(adult)
+```
+
+## Question 1
+What is difference between col and fill in plot code below?
+
+```{r adult}
+library(ggplot2)
+# Age colored by BMI
+ggplot(adult, aes(x = SRAGE_P, col = BMI_P, fill = factor(RBMI))) + geom_histogram(binwidth = 1)
+```
+
+Question 2
+Can you explain what the function "x/sum(x)"" is doing? Is it adding up everything in an age group and then giving the proportion for each? 
+
+```{r adult}
+# Create DF with table()
+DF <- table(adult$RBMI, adult$SRAGE_P)
+head(DF)
+
+# Use apply on DF to get frequency of each group
+DF_freq <- apply(DF, 2, function(x) x/sum(x))
+head(DF_freq)
+
+```
+
